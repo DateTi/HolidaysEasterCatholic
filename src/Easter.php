@@ -8,8 +8,22 @@ use DateTime;
 
 class Easter implements EasterHolidayInterface
 {
+    public function getMonday(int $year): DateTime
+    {
+        return self::monday($year);
+    }
 
-    public static function getMonday(int $year): DateTime
+    public function getEaster(int $year): DateTime
+    {
+        return self::easter($year);
+    }
+
+    public function getGoodFriday(int $year): DateTime
+    {
+        return self::goodFriday($year);
+    }
+
+    public static function monday(int $year): DateTime
     {
         $easter = self::getEaster($year);
         $day = self::createDateTime($easter);
@@ -17,13 +31,13 @@ class Easter implements EasterHolidayInterface
         return $day;
     }
 
-    public static function getEaster(int $year): DateTime
+    public static function easter(int $year): DateTime
     {
         [$s1, $s2, $d, $e, $a] = self::getCalculableVars($year);
         return self::calculate($year, $s1, $s2, $d, $e, $a);
     }
 
-    public static function getGoodFriday(int $year): DateTime
+    public static function goodFriday(int $year): DateTime
     {
         $easter = self::getEaster($year);
         $day = self::createDateTime($easter);
